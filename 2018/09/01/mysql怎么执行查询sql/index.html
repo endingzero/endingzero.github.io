@@ -75,36 +75,44 @@
         <div class="posts">
     <article class="post-whole">
         <div class="post-title">
-            <h2 class="title">算法之希尔排序</h2>
+            <h2 class="title">算法之插入排序</h2>
             <div class="post-meta">
-                <span class="post-time">2018-08-01</span>
+                <span class="post-time">2018-09-01</span>
                 
                 <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
             </div>
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL分为Server层和存储引擎层两部分"><span class="toc-text">MySQL分为Server层和存储引擎层两部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询语句的查询过程"><span class="toc-text">查询语句的查询过程</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">回到顶部</a>
     </div>
 </div>
         <div class="post-content">
-            <ol>
-<li><p>希尔排序可以理解为是多次的插入排序，有一个固定的增量，为什么要使用希尔排序呢？插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率，但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位。</p>
-</li>
-<li><p>时间复杂度平均情况下是O（ n^1.3 ）,最好情况是O（ n ）,空间复杂度是O（1）。</p>
-</li>
-<li><p>代码如下</p>
-</li>
+            <h2 id="MySQL分为Server层和存储引擎层两部分"><a href="#MySQL分为Server层和存储引擎层两部分" class="headerlink" title="MySQL分为Server层和存储引擎层两部分"></a>MySQL分为Server层和存储引擎层两部分</h2><ul>
+<li>Server层包括连接器、查询缓存（一般没用）、分析器、优化器、执行器，很多功能都在这一层上面实现，mysql的核心功能、内置函数、跨引擎的功能等。</li>
+<li>存储引擎主要负责数据的存储和提取，主要有InnoDB、MyISAM、Memory等多种引擎。最常用的是InnoDB。</li>
+</ul>
+<h2 id="查询语句的查询过程"><a href="#查询语句的查询过程" class="headerlink" title="查询语句的查询过程"></a>查询语句的查询过程</h2><p>如:select * from user where id = 10;</p>
+<ol>
+<li>先连接数据库，这时候连接器负责与客户端建立连接、获取权限、维持和管理连接。</li>
+<li>连接建立完成后，会先到查询缓存看看，之前是否执行过这条语句，执行语句和结果是以key-value的形式缓存在内存中。（因为缓存往往利大于弊，所以不建议开启，8.0版本之后整块缓存功能已经删除。）</li>
+<li>第三步是分析器对SQL进行解析，比如对select解析出是查询语句id解析出是列名。一般sql写错的时候会报错误，而且会第一个出现错误的位置。</li>
+<li>经过分析器之后，在开始执行sql之前，会经过优化器，优化器是在表里面有多个索引的时候，决定使用哪个索引、或者是夺标关联查询join的时候，决定各个表的连接顺序。</li>
+<li>优化器之后，语句的执行方案就出来了，就进入执行器阶段。开始执行的时候，先判断你是否对表有没有执行查询的权限，如果没有就返回没有权限的错误。如果有权限，就打开表继续执行，执行器会根据表的引擎定义，去使用这个引擎提供的接口。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ShellSort &#123;</span><br><span class="line">	public static void shellSort(int[] arr,int n)&#123;</span><br><span class="line">		int j,gap;</span><br><span class="line">		for(gap = n/2;gap&gt;0;gap/=2)&#123;</span><br><span class="line">			for(j=gap;j&lt;n;j++)&#123;</span><br><span class="line">				if(arr[j]&lt;arr[j-gap])&#123;</span><br><span class="line">					int temp = arr[j];</span><br><span class="line">					int k = j-gap;</span><br><span class="line">					while(k&gt;=0&amp;&amp;arr[k]&gt;temp)&#123;</span><br><span class="line">						arr[k+gap] = arr[k]; </span><br><span class="line">						k-=gap;</span><br><span class="line">						</span><br><span class="line">					&#125;</span><br><span class="line">					arr[k+gap] = temp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void print(int data[])&#123;</span><br><span class="line">		for(int tmp:data)&#123;</span><br><span class="line">			System.out.print(tmp+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int[] arr=&#123;9,5,2,6,3,8&#125;;</span><br><span class="line">		shellSort(arr,arr.length);</span><br><span class="line">		print(arr);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果没索引则取第一行判断是否id是否等于10，如果不是则循环吓一跳，是则存入结果集然后执行下一行，直到表的最后一行。</li>
+<li>对于有索引的，执行逻辑类似，取满足条件的第一行的接口，之后循环。</li>
+<li>使用过explain的就看到过一个rows_examined的字段，表示执行过程扫描了多少行，这个值就是执行器每次调用引擎获取数据行的时候累加的。</li>
+</ul>
 
         </div>
         
         <div class="post-tag">
             
-            <a class="tag" href="/tags/算法/" title="算法">算法</a>
+            <a class="tag" href="/tags/mysql/" title="mysql">mysql</a>
             
         </div>
         
@@ -113,15 +121,9 @@
 <div class="paginator">
     
         
-            <a class="prev" href="/2018/09/01/mysql怎么执行查询sql/">
-                <i class="iconfont icon-prev"></i>
-                <span class="nav-default">算法之插入排序</span>
-                <span class="nav-mobile">上一篇</span>
-            </a>
         
-        
-            <a class="next" href="/2018/07/20/算法之插入排序/">
-                <span class="nav-default">算法之插入排序</span>
+            <a class="next" href="/2018/08/01/算法之希尔排序/">
+                <span class="nav-default">算法之希尔排序</span>
                 <span class="nav-mobile">下一篇</span>
                 <i class="iconfont icon-next"></i>
             </a>
