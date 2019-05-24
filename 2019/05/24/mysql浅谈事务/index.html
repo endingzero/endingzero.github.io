@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Mysql浅谈事务 |   ending&#39;s blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
+
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/logo.png">
+      </a>
+    </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+    </ul>
+  </nav>
+</header>
+
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post slideDownMin">
+  
+	
+<div class="header">
+		<p class="title">	
+			mysql浅谈事务
+		</p>
+		<div class="info">	
+			<time>
+				5月 24, 2019
+			</time>
+
+			
+			
+				<i class="iconfont icon-words"></i>
+				<span class="words">1250
+				</span>
+			
+		</div>
+</div> 
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+
+	  <div class="typo post-content ">
+
+		
+
+			
+					<h3 id="事务四个特性："><a href="#事务四个特性：" class="headerlink" title="事务四个特性："></a>事务四个特性：</h3><p>提到事务，就会想起ACID（Atomicity、Consistency、Isolation、Durability）</p>
+<ul>
+<li>原子性：to be or not to be</li>
+<li>一致性：事务前后数据的完整性必须保持一致。</li>
+<li>隔离性：下面重点介绍</li>
+<li>持久性：指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响。</li>
+</ul>
+<a id="more"></a>
+<h3 id="事务的隔离性和隔离级别"><a href="#事务的隔离性和隔离级别" class="headerlink" title="事务的隔离性和隔离级别"></a>事务的隔离性和隔离级别</h3><p>当数据库有多个事务同时执行，就可能出现脏读、不可重复度、幻读的问题，所以就有了隔离级别，级别越严实，效率就越低。事务隔离级别有四种:</p>
+<ul>
+<li>读未提交:一个事务没提交，它的变更可以被其他事务看到</li>
+<li>读提交:一个事务提交之后，他的变更才能被其他事务看到</li>
+<li>可重复读:一个事务执行过程中看到的数据，总是跟这个事务再启动时看到的一致，未提交变更对其它事务是不可见的。</li>
+<li>串行化:同一条记录，写会加写所，读会加毒素哦，读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>事务A</th>
+<th>事务B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动事务查询得到值1</td>
+<td>启动事务</td>
+</tr>
+<tr>
+<td></td>
+<td>查询得到值1</td>
+</tr>
+<tr>
+<td></td>
+<td>将值1改成值2</td>
+</tr>
+<tr>
+<td>查询得到值V1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>提交B</td>
+</tr>
+<tr>
+<td>查询得到值V2</td>
+<td></td>
+</tr>
+<tr>
+<td>提交事务A</td>
+<td></td>
+</tr>
+<tr>
+<td>查询得到值V3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>读未提交：V1=2,V2=2,V3=2;</li>
+<li>读已提交：V1=1,V2=2,V3=2;</li>
+<li>可重复读：V1=1,V2=1,V3=2;</li>
+<li>串行化：V1=1,V2=1,V3=2;</li>
+</ul>
+<p>mysql是怎么实现的呢？<br>实际上，数据库会创建一个试图，访问的时候以示图的逻辑结果为准，在可重复读隔离级别下，这个事务在事务启动时创建，整个事务都是这个是图；在读提交的隔离级别，这个视图在每个sql语句开始执行之前创建；在读未提交的隔离级别，没有视图，直接返回记录的最新值；在串行化隔离级别直接用锁避免并行访问。</p>
+<p>可通过show variables like ‘transaction_isolation’来查看数据库使用的是什么隔离级别，一般是读提交。</p>
+<h3 id="事务的启动"><a href="#事务的启动" class="headerlink" title="事务的启动"></a>事务的启动</h3><p>1、使用begin或者start transaction，配套提交语句commit，回滚语句rollback;<br>2、set autocommit=0,这个敏玲相当于把自动提交关掉，需要你主动执行commit或者断开链接，这种经常导致查询在事务中，如果是长连接，就导致意外的长事务（不建议）.</p>
+<h3 id="事务隔离的实现"><a href="#事务隔离的实现" class="headerlink" title="事务隔离的实现"></a>事务隔离的实现</h3><p>在mysql中，每更新一次数据，都会记录一条回滚操作，记录上的最新值，通过回滚，可以得到前一个状态的值。<br>假设一个值从 1 被按顺序改成了 2、3、4，在回滚日志里面就有这样的记录,将4改成3、将3改成2、将2改成1.在查询这些数据的时候会启动不同的视图，同一条记录可以存在多个版本，这就是数据库的多版本并发控制（MVCC）。<br>回滚记录会在数据库认为认为不需要的时候删除掉。</p>
+<p>为什么尽量不要使用长事务呢？<br>长事务意味着会存在许多旧的视图，在事务提交之前，都会保留这些回滚记录，就会占据大量的存储空间，而且长事务还会占用锁资源。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="bottom">
+  <div class="other">
+    <div class="meta">
+      
+
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/mysql/">mysql</a>
+      
+    </div>
+
+    <div class="operate">
+      
+    </div>
+  </div>
+
+
+  
+  <nav class="nav">
+    <div class="link">
+      
+      <a href="/2019/05/23/mysql浅谈索引/" class="link-wrap">
+        <strong class="caption">older</strong>
+        
+        <span class="title">
+          mysql浅谈索引
+        </span>
+      </a>
+      
+    </div>
+    <div class="link">
+      
+    </div>
+  </nav>
+  
+</div> 
+	
+<div class="comment">
+
+    
+</div>	
+</article>
+
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+      
+</div>
+        
+    
+
+
+
+     
+    
+
+
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2018 -
+			
+			2019
+			ending
+
+			<br>
+		</div>
+	</div>
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
