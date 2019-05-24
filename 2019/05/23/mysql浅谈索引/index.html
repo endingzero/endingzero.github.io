@@ -1,123 +1,146 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>ending&#39;s blog</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
-</head>
-<body>
-<header class="header">
-    <div class="header-inner">
-        <div class="header-title">
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Mysql浅谈索引 |   ending&#39;s blog </title>
 
-        </div>
-        <nav class="header-nav">
-            
-            <a href="/" class="header-nav-link">
-                首页
-            </a>
-            
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
 
-            
-            <a href="/archives" class="header-nav-link">
-                归档
-            </a>
-            
 
-            
-            <a href="/tags" class="header-nav-link">
-                标签
-            </a>
-            
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
 
-            
-        </nav>
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/logo.png">
+      </a>
     </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+    </ul>
+  </nav>
 </header>
-<header class="mobile-header">
-    <div class="mobile-nav">
-        <div class="mobile-nav-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="mobile-nav-title">
-            <a href="/" class="mobile-nav-title-link">ending's Blog</a>
-        </div>
 
-    </div>
-    <nav class="mobile-menu">
-        <ul class="mobile-menu-list">
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-home"></i>
-                <a href="/" class="mobile-nav-link">首页</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-archive"></i>
-                <a href="/archives" class="mobile-nav-link">归档</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-tag"></i>
-                <a href="/tags" class="mobile-nav-link">标签</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-about"></i>
-                <a href="/about/" class="mobile-nav-link">关于</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<div class="main">
-    <div class="content-inner">
-        <div class="posts">
-    <article class="post-whole">
-        <div class="post-title">
-            <h2 class="title">mysql浅谈索引</h2>
-            <div class="post-meta">
-                <span class="post-time">2019-05-23</span>
-                
-                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
-            </div>
-        </div>
-        <div class="post-toc" id="post-toc">
-    <strong class="post-toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql浅谈索引"><span class="toc-text">mysql浅谈索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#索引的常见模型"><span class="toc-text">索引的常见模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB的索引模型"><span class="toc-text">InnoDB的索引模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#索引的分类"><span class="toc-text">索引的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#索引遵循最左前缀原则"><span class="toc-text">索引遵循最左前缀原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设计原则"><span class="toc-text">设计原则</span></a></li></ol></li></ol>
-    <div class="back-to-top" id="back-to-top">
-        <a href="javascript:void(0);">回到顶部</a>
-    </div>
-</div>
-        <div class="post-content">
-            <h2 id="mysql浅谈索引"><a href="#mysql浅谈索引" class="headerlink" title="mysql浅谈索引"></a>mysql浅谈索引</h2><h3 id="索引的常见模型"><a href="#索引的常见模型" class="headerlink" title="索引的常见模型"></a>索引的常见模型</h3><ul>
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post slideDownMin">
+  
+	
+<div class="header">
+		<p class="title">	
+			mysql浅谈索引
+		</p>
+		<div class="info">	
+			<time>
+				5月 23, 2019
+			</time>
+
+			
+			
+				<i class="iconfont icon-words"></i>
+				<span class="words">2011
+				</span>
+			
+		</div>
+</div> 
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+
+	  <div class="typo post-content ">
+
+		
+
+			
+					<h3 id="索引的常见模型"><a href="#索引的常见模型" class="headerlink" title="索引的常见模型"></a>索引的常见模型</h3><ul>
 <li>哈希表是以key-value存储数据结构，只要输入key就能找到对应的value，多个key经过换算会出现同一个值，所以解决这种方法就是后面拉出个链表。这种的优缺点也比较容易看出，新增的时候简单，直接在里链表后面追加，但是不是有序的，查询就很慢。</li>
 <li>有序数组就相反，查询特别优秀，但是新增的时候，后面的数据的序号都跟着变了。</li>
-<li>二叉树的特点是每个节点都有个左儿子和有儿子，做儿子小于父节点，右儿子大于父节点，但是一颗多节点的二叉树，书树高假如20，一次查询可能就要访问20个数据库，所以为了让查询尽量少读磁盘，就使用N叉树。</li>
-</ul>
-<h3 id="InnoDB的索引模型"><a href="#InnoDB的索引模型" class="headerlink" title="InnoDB的索引模型"></a>InnoDB的索引模型</h3><ul>
+<li>二叉树的特点是每个节点都有个左儿子和有儿子，做儿子小于父节点，右儿子大于父节点，但是一颗多节点的二叉树，书树高假如20，一次查询可能就要访问20个数据库，所以为了让查询尽量少读磁盘，就使用N叉树。<a id="more"></a>
+<h3 id="InnoDB的索引模型"><a href="#InnoDB的索引模型" class="headerlink" title="InnoDB的索引模型"></a>InnoDB的索引模型</h3></li>
 <li>平衡二叉树<br>二叉树的左树和右树的高度差绝对值不超过1,就是平衡二叉树</li>
-<li>b树<br>b树可以说是二叉树的进化版，一个节点可以有多个子树。<ol>
+<li>b树<br>  b树可以说是二叉树的进化版，一个节点可以有多个子树。<ul>
 <li>B树的关键词是：指针+关键字+地址 </li>
 <li>一个M阶b树的结点最多有M个子树</li>
-</ol>
+</ul>
 </li>
-<li><p>b+树<br>b+树，是b树的一种变体，查询性能更好。m阶的b+树的特征：</p>
-<ol>
+<li><p>b+树<br>  b+树，是b树的一种变体，查询性能更好。m阶的b+树的特征：</p>
+<ul>
 <li>有n棵子树的非叶子结点中含有n个关键字（b树是n-1个），这些关键字不保存数据，只用来索引，所有数据都保存在叶子节点（b树是每个关键字都保存数据）。</li>
 <li>所有的叶子结点中包含了全部关键字的信息，及指向含这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接。</li>
 <li>所有的非叶子结点可以看成是索引部分，结点中仅含其子树中的最大（或最小）关键字。</li>
 <li>通常在b+树上有两个头指针，一个指向根结点，一个指向关键字最小的叶子结点。</li>
 <li>同一个数字会在不同节点中重复出现，根节点的最大元素就是b+树的最大元素。</li>
-</ol>
+</ul>
 </li>
 <li><p>平衡二叉树、b树、b+树的比较</p>
-<ol>
+<ul>
 <li>二叉树和b树的查询次数少差不多的，但是树的高度不一样，高度h是进行磁盘IO的次数的体现，因为读写磁盘相比内存操作更加耗费时间，所以B树更合适。</li>
 <li>b树和b+树的主要区别是，b+树在非叶子结点存放关键词，不存放数据，叶子结点才存放数据。所以磁盘页能存放更多的数据，显得更“矮胖”;</li>
 <li>b+树查询必须查找到叶子节点，b树只要匹配到即可不用管元素位置，因此b+树查找更稳定(并不慢);</li>
 <li>对于范围查找来说，b+树只需遍历叶子节点链表即可，b树却需要重复地中序遍历.</li>
-</ol>
+</ul>
 </li>
 <li><p>mysql的采用的B+树的索引模型,每个索引在InnoDB里面对应一棵B+树</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table T(</span><br><span class="line">id int primary key,</span><br><span class="line">k int not null,</span><br><span class="line">name varchar(16),</span><br><span class="line">index(k))engine+InnoDB</span><br></pre></td></tr></table></figure>
@@ -144,57 +167,120 @@
 <li>当唯一性是某种数据本身的特征时，指定唯一索引。使用唯一索引需能确保定义的列的数据完整性，以提高查询速度</li>
 <li>在频繁排序或分组（即group by或order by操作）的列上建立索引，如果待排序的列有多个，可以在这些列上建立组合索引</li>
 </ul>
+  	
+					
+	  </div>     
+	  
 
-        </div>
+	<div class="bottom">
+  <div class="other">
+    <div class="meta">
+      
+
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/mysql/">mysql</a>
+      
+    </div>
+
+    <div class="operate">
+      
+    </div>
+  </div>
+
+
+  
+  <nav class="nav">
+    <div class="link">
+      
+      <a href="/2019/05/20/项目分成多个模块/" class="link-wrap">
+        <strong class="caption">older</strong>
         
-        <div class="post-tag">
-            
-            <a class="tag" href="/tags/mysql/" title="mysql">mysql</a>
-            
-        </div>
-        
-    </article>
-</div>
-<div class="paginator">
+        <span class="title">
+          项目拆分多个模块
+        </span>
+      </a>
+      
+    </div>
+    <div class="link">
+      
+    </div>
+  </nav>
+  
+</div> 
+	
+<div class="comment">
+
     
+</div>	
+</article>
+
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
         
-        
-            <a class="next" href="/2019/05/20/项目分成多个模块/">
-                <span class="nav-default">项目拆分多个模块</span>
-                <span class="nav-mobile">下一篇</span>
-                <i class="iconfont icon-next"></i>
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
             </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+      
+</div>
         
     
-</div>
-<div id="comment-container"></div>
-    </div>
-</div>
-<footer class="footer-social">
+
+
+
+     
     
 
-    
 
-    
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2018 -
+			
+			2019
+			ending
 
-    <div class="footer-copyright">
-        <p class="time-line">
-            &copy;
-            
-            
-            2019
-            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
-            <a target="_blank" href="https://github.com/iJinxin">ending</a>
-        </p>
-    </div>
-</footer>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-    
+			<br>
+		</div>
+	</div>
+</footer>   
 
-</script>
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
 </html>
