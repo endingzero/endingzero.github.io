@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Mysql再谈索引 |   ending&#39;s blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
+
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/logo.png">
+      </a>
+    </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+    </ul>
+  </nav>
+</header>
+
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post slideDownMin">
+  
+	
+<div class="header">
+		<p class="title">	
+			mysql再谈索引
+		</p>
+		<div class="info">	
+			<time>
+				5月 27, 2019
+			</time>
+
+			
+			
+				<i class="iconfont icon-words"></i>
+				<span class="words">1199
+				</span>
+			
+		</div>
+</div> 
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+
+	  <div class="typo post-content ">
+
+		
+
+			
+					<h3 id="怎么给字符串加索引"><a href="#怎么给字符串加索引" class="headerlink" title="怎么给字符串加索引"></a>怎么给字符串加索引</h3><p>实际开发中，我们加索引很多都在表相互关联中的字段、或者order by和group by之类的字段。但是有一些特殊的系统，需要对字符串进行加索引。例如邮箱,身份证之类.</p>
+<a id="more"></a>
+<h3 id="指定长度的前缀"><a href="#指定长度的前缀" class="headerlink" title="指定长度的前缀"></a>指定长度的前缀</h3><p>字符串的索引可以是指定长度的前缀，也可以是不指定长度，默认是整个字符串。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>email</th>
+<th>Id_card</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="mailto:Zhangsan1a2b@XX.com" target="_blank" rel="noopener">Zhangsan1a2b@XX.com</a></td>
+<td>44512119921218<em>**</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="mailto:Zhangsan3c4d@XX.com" target="_blank" rel="noopener">Zhangsan3c4d@XX.com</a></td>
+<td>44512119940518<em>**</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="mailto:Zhangsan5e6f@XX.com" target="_blank" rel="noopener">Zhangsan5e6f@XX.com</a></td>
+<td>44512119960508<em>**</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="mailto:Zhangsan7g8h@XX.com" target="_blank" rel="noopener">Zhangsan7g8h@XX.com</a></td>
+<td>44512119980422<em>**</em></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>假设以email作为索引，有以下两种设置</p>
+<ul>
+<li>index1:整个字段作为索引</li>
+<li>index(8),前8个字段作为索引<br><img src="https://i.loli.net/2019/05/27/5ceb504543f3381185.jpg" alt="1558925399007.jpg"></li>
+</ul>
+<p>查询<a href="mailto:email=Zhangsan7g8h@XX.com" target="_blank" rel="noopener">email=Zhangsan7g8h@XX.com</a>的记录时候，</p>
+<ul>
+<li>从index1索引树遍历符合<a href="mailto:Zhangsan7g8h@XX.com" target="_blank" rel="noopener">Zhangsan7g8h@XX.com</a>的记录，取得id4的值，再回主键索引获取id=4的记录，加入结果集。</li>
+<li>从index(8)的索引树符合<a href="mailto:Zhangsan7g8h@XX.com" target="_blank" rel="noopener">Zhangsan7g8h@XX.com</a>的记录，首先取前8位Zhangsan作为索引查询，找到第一个是id1的，回索引表再判断email是否等于<a href="mailto:Zhangsan7g8h@XX.com" target="_blank" rel="noopener">Zhangsan7g8h@XX.com</a>,返回不符合，继续循环，直到找到id4，回主键索引表匹配成功。</li>
+</ul>
+<p>第一种索引回主键索引只有一次，所以查询次数只有1，第二种是4此，所以查询次数是4.可见，索引前缀长度的变少，会增加查询次数，但是索引的长度越短，又能节省空间。因此，在设置这类索引的时候，可以有以下做法：</p>
+<p>首先通过下面语句查询这个字段有多少个不同的列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(distinct email) from user;</span><br></pre></td></tr></table></figure>
+<p>然后选取不同的长度来进行比较</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select count(distinct left(email,6) as l6,</span><br><span class="line">count(distinct left(email,7) as l7,</span><br><span class="line">count(distinct left(email,8) as l8,</span><br><span class="line">count(distinct left(email,9) as l9</span><br><span class="line">from user</span><br></pre></td></tr></table></figure>
+<p>然后选择一种可以接受的损失比例。</p>
+<h3 id="其它方式"><a href="#其它方式" class="headerlink" title="其它方式"></a>其它方式</h3><p>假设是以身份证作为索引的，我们看到相同区域的人往往前面好几位都是相同的，所以这种相似度很高的，我们建议一下几种方式来进行建立索引</p>
+<ul>
+<li>倒序存储，即身份证存储的时候反过来存储，查询获取需要反过来。</li>
+<li>增加hash存储，即额外增加一个字段，来保存身份证的验证码，同时在这个新增字段建立索引。即每次新增数据，使用crc32() 这个函数得到校验码填到这个新字段，由于校验码可能存在冲突，所以在where后面要判断新增字段还要判断身份证号码，这样索引就变成4位了。</li>
+</ul>
+  	
+					
+	  </div>     
+	  
+
+	<div class="bottom">
+  <div class="other">
+    <div class="meta">
+      
+
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/mysql/">mysql</a>
+      
+    </div>
+
+    <div class="operate">
+      
+    </div>
+  </div>
+
+
+  
+  <nav class="nav">
+    <div class="link">
+      
+      <a href="/2019/05/24/mysql浅谈事务/" class="link-wrap">
+        <strong class="caption">older</strong>
+        
+        <span class="title">
+          mysql浅谈事务
+        </span>
+      </a>
+      
+    </div>
+    <div class="link">
+      
+    </div>
+  </nav>
+  
+</div> 
+	
+<div class="comment">
+
+    
+</div>	
+</article>
+
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+      
+</div>
+        
+    
+
+
+
+     
+    
+
+
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2018 -
+			
+			2019
+			ending
+
+			<br>
+		</div>
+	</div>
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
