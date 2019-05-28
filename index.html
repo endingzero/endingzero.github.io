@@ -100,6 +100,59 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2019/05/28/mysql浅谈order by/">mysql再谈索引</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>5月 28, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h3 id="mysql浅谈order-by"><a href="#mysql浅谈order-by" class="headerlink" title="mysql浅谈order by"></a>mysql浅谈order by</h3><p>背景：按照性别查询前10个用户最新创建的用户。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select tu.id,tu.name,tu.sex FROM t_user tu where tu.sex = &apos;F&apos; order by tu.create_time desc limit 0,10;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/05/28/5ceccf934840895060.jpg" alt="explain1559021687661.jpg"></p>
+<p>前面说过了，为避免全表查询，我们在where语句后面字段加上了索引。<br>
+		  	  
+	</p></div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/mysql/">mysql</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/05/27/mysql再谈索引/">mysql再谈索引</a>  
 	       
 		 
@@ -571,54 +624,6 @@
 
 	
 	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2018/07/20/算法之插入排序/">算法之插入排序</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>7月 20, 2018</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><ol>
-<li><p>思想：插入排序首先是将第一位数看成是已经排序号的数列，第二位与之比较插入到合适的位置，这时候一二位就变成了已经排序的数组，接着第三位拿来和第二位比较，依次类推，直到排序完成。</p>
-</li>
-<li><p>时间复杂度分析，最坏情况下是全部逆序，插入第一个需要考虑一个元素，插入第二个需要考虑两个元素，最坏情况下是1+2+……+(n-1）,等差数列求和就是n^2 /2;O( n^2 );最好情况是O(n),就是只考虑一个元素;平均是O( n^2 );空间复杂度是O(1)。</p>
-		  	  
-	</li></ol></div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2018/07/20/算法之插入排序/">Continue</a> 	
-	</div>	
-    
-</article>
-
-	
-	
 
 	
 	
@@ -626,7 +631,7 @@
    <nav class="paginator">
     
 
-   <span class="page-number"> Page <strong>1</strong>, Posts <strong>12</strong>. </span>
+   <span class="page-number"> Page <strong>1</strong>, Posts <strong>13</strong>. </span>
 
     
         <a class="next" href="/page/2/"> 
