@@ -100,6 +100,58 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">怎么使用optimizer_trace来分析sql执行流程</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>5月 30, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h3 id="什么optimizer-trace"><a href="#什么optimizer-trace" class="headerlink" title="什么optimizer_trace"></a>什么optimizer_trace</h3><p>使用optimizer_trace是Mysql5.6.3新加的一个特性，可以将优化器的决策和执行过程输出成文本，便于sql分析与优化。本分主要还是参考<a href="https://dev.mysql.com/doc/internals/en/optimizer-tracing.html" target="_blank" rel="noopener">mysql文档</a></p>
+<h3 id="怎么使用optimizer-trace"><a href="#怎么使用optimizer-trace" class="headerlink" title="怎么使用optimizer_trace"></a>怎么使用optimizer_trace</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#1. 开启 optimizer_trace</span><br><span class="line">SET optimizer_trace=&apos;enabled=on&apos;;</span><br><span class="line"></span><br><span class="line">#2. 执行我们需要执行的 sql</span><br><span class="line">todo</span><br><span class="line"></span><br><span class="line">#3. 查询 optimizer_trace 详情</span><br><span class="line">select trace from `information_schema`.`optimizer_trace`\G;</span><br><span class="line"></span><br><span class="line">#4. 关闭 optimizer_trace</span><br><span class="line">SET optimizer_trace=&quot;enabled=off&quot;;</span><br></pre></td></tr></table></figure>
+<p>注：此处的\G在navicat使用发现不起效，在终端使用可行，同里SET optimizer_trace=’enabled=on’;也是对性能会有一定的影响，所以这里也是在需要的时候才开启，平时是关闭的。<br>
+		  	  
+	</p></div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/mysql/">mysql</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/05/29/多使用explain/">多使用explain</a>  
 	       
 		 
@@ -136,7 +188,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/29/多使用explain/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/29/多使用explain/">Continue</a> 	
 	</div>	
     
 </article>
@@ -189,7 +241,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">Continue</a> 	
 	</div>	
     
 </article>
@@ -239,7 +291,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/27/mysql再谈索引/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/27/mysql再谈索引/">Continue</a> 	
 	</div>	
     
 </article>
@@ -295,7 +347,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">Continue</a> 	
 	</div>	
     
 </article>
@@ -348,7 +400,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">Continue</a> 	
 	</div>	
     
 </article>
@@ -399,7 +451,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/20/项目分成多个模块/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/20/项目分成多个模块/">Continue</a> 	
 	</div>	
     
 </article>
@@ -460,7 +512,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/15/特殊需求的发号器/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/15/特殊需求的发号器/">Continue</a> 	
 	</div>	
     
 </article>
@@ -510,7 +562,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/04/15/UML类与类之间关系图/">阅读更多</a> 	
+		<a class="readmore" href="/2019/04/15/UML类与类之间关系图/">Continue</a> 	
 	</div>	
     
 </article>
@@ -561,60 +613,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/04/01/导出大数据量excel/">阅读更多</a> 	
-	</div>	
-    
-</article>
-
-	
-	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2018/09/01/mysql怎么执行查询sql/">MySQL的查询过程</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>9月 01, 2018</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h3 id="MySQL分为Server层和存储引擎层两部分"><a href="#MySQL分为Server层和存储引擎层两部分" class="headerlink" title="MySQL分为Server层和存储引擎层两部分"></a>MySQL分为Server层和存储引擎层两部分</h3><ul>
-<li>Server层包括连接器、查询缓存（一般没用）、分析器、优化器、执行器，很多功能都在这一层上面实现，mysql的核心功能、内置函数、跨引擎的功能等。</li>
-<li>存储引擎主要负责数据的存储和提取，主要有InnoDB、MyISAM、Memory等多种引擎。最常用的是InnoDB。</li>
-</ul>
-		  	  
-	</div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-			<i class="iconfont icon-tags" style="margin-right:4px"></i>
-			            
-				<a class="link" href="/tags/mysql/">mysql</a>           
-			
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2018/09/01/mysql怎么执行查询sql/">阅读更多</a> 	
+		<a class="readmore" href="/2019/04/01/导出大数据量excel/">Continue</a> 	
 	</div>	
     
 </article>
@@ -628,11 +627,11 @@
    <nav class="paginator">
     
 
-   <span class="page-number"> Page <strong>1</strong>, Posts <strong>14</strong>. </span>
+   <span class="page-number"> Page <strong>1</strong>, Posts <strong>15</strong>. </span>
 
     
         <a class="next" href="/page/2/"> 
-            下一页
+            Next
             <i class="iconfont icon-right"></i>
         </a>
     
@@ -669,7 +668,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -685,19 +684,19 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
