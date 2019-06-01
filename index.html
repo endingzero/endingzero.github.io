@@ -100,6 +100,60 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2019/06/01/模板方法/">模板方法</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>6月 01, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h3 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h3><p>定义：定义一个操作中算法的框架，而将一些步骤延迟到子类中，使得子类可以不改变算法的结构即可重定义该算法中的某些特定步骤。</p>
+<p>类型：行为类模式</p>
+<p>类图<br><img src="https://i.loli.net/2019/06/01/5cf217878ff2c79107.jpg" alt="1559369634153.jpg"></p>
+<blockquote>
+</blockquote>
+		  	  
+	</div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/设计模式/">设计模式</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/06/01/模板方法/">阅读更多</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">怎么使用optimizer_trace来分析sql执行流程</a>  
 	       
 		 
@@ -138,7 +192,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">Continue</a> 	
+		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -188,7 +242,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/29/多使用explain/">Continue</a> 	
+		<a class="readmore" href="/2019/05/29/多使用explain/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -241,7 +295,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">Continue</a> 	
+		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -291,7 +345,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/27/mysql再谈索引/">Continue</a> 	
+		<a class="readmore" href="/2019/05/27/mysql再谈索引/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -347,7 +401,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">Continue</a> 	
+		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -400,80 +454,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">Continue</a> 	
-	</div>	
-    
-</article>
-
-	
-	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2019/05/20/模板方法/">模板方法</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>5月 20, 2019</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		 
-			<h3 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h3><p>定义：定义一个操作中算法的框架，而将一些步骤延迟到子类中，使得子类可以不改变算法的结构即可重定义该算法中的某些特定步骤。</p>
-<p>类型：行为类模式</p>
-<p>类图<br><img src="https://i.loli.net/2019/06/01/5cf217878ff2c79107.jpg" alt="1559369634153.jpg"></p>
-<blockquote>
-</blockquote>
-<h2 id="星巴兹咖啡冲泡法"><a href="#星巴兹咖啡冲泡法" class="headerlink" title="星巴兹咖啡冲泡法"></a>星巴兹咖啡冲泡法</h2><p>1、把水煮沸<br>2、用沸水冲泡咖啡<br>3、把咖啡倒进杯子里面<br>4、加糖和牛奶</p>
-<h2 id="星巴兹茶冲泡法"><a href="#星巴兹茶冲泡法" class="headerlink" title="星巴兹茶冲泡法"></a>星巴兹茶冲泡法</h2><p>1、把水煮沸<br>2、用沸水浸泡茶叶<br>3、把茶倒进杯子里面<br>4、加柠檬</p>
-<p>这些步骤中，我们知道在冲泡的步骤中很多重复的东西，而且咖啡和茶有很多共同点，所以需要新建一个基类来提取共同的步骤，分析一下我们有哪些相同的步骤呢</p>
-<ol>
-<li>把水煮沸</li>
-<li>倒进杯子<br>再看看，用沸水浸泡和冲泡、还有加调料这两个步骤，可以分别抽象成同一个方法，让子类分别去实现。下面是这几个的实现。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public abstract class CaffeineBeverage &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 定义为final，因为不希望子类覆盖此方法</span><br><span class="line">     */</span><br><span class="line">    final void prepareRecipe() &#123;</span><br><span class="line">        boilWater();</span><br><span class="line">        brew();</span><br><span class="line">        pourInCup();</span><br><span class="line">        //使用钩子，子类可以覆盖实现，也可以不用</span><br><span class="line">        if(customerWantsCondiments()) &#123;</span><br><span class="line">            addCondiments();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    boolean customerWantsCondiments()&#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 冲泡</span><br><span class="line">     */</span><br><span class="line">    abstract void brew();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 增加调料</span><br><span class="line">     */</span><br><span class="line">    abstract void addCondiments();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 倒到杯子</span><br><span class="line">     */</span><br><span class="line">    private void pourInCup() &#123;</span><br><span class="line">        System.out.println(&quot;倒到杯子&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 煮开水</span><br><span class="line">     */</span><br><span class="line">    protected void boilWater() &#123;</span><br><span class="line">        System.out.println(&quot;煮开水&quot;);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Coffee extends CaffeineBeverage&#123;</span><br><span class="line">    @Override</span><br><span class="line">    void brew() &#123;</span><br><span class="line">        System.out.println(&quot;冲泡咖啡&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    void addCondiments() &#123;</span><br><span class="line">        System.out.println(&quot;增加糖和牛奶&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class Tea extends CaffeineBeverage &#123;</span><br><span class="line"></span><br><span class="line">    private Boolean userInput;</span><br><span class="line">    @Override</span><br><span class="line">    void brew() &#123;</span><br><span class="line">        System.out.println(&quot;冲泡茶叶&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    void addCondiments() &#123;</span><br><span class="line">        System.out.println(&quot;添加蜂蜜&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    boolean customerWantsCondiments()&#123;</span><br><span class="line">        return getUserInput();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserInput(Boolean userInput) &#123;</span><br><span class="line">        this.userInput = userInput;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Boolean getUserInput() &#123;</span><br><span class="line">        return userInput;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个例子就是模板方法模式，那模板方法模式具备哪些特点呢？</p>
-<ol>
-<li>模板方法一般声明为final，如例子中的prepareRecipe，</li>
-<li>模板方法中定义了一连串步骤，这些步骤可以是自己实现的，也可以由子类实现。</li>
-<li>由子类实现的步骤方法必须是abstract。</li>
-</ol>
-<p>补充：钩子是一种被声明在抽象类中的方法，但只有空实现或者默认实现。钩子的存在可以让子类有能力对算法而不同点进行挂钩，要不要挂钩，由子类决定。</p>
-<p><strong>内容参考自head first一书</strong><br>例子可以参考<a href="https://github.com/endingzero/scaffold" target="_blank" rel="noopener">github</a></p>
-
-		  	  
-	</div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-			<i class="iconfont icon-tags" style="margin-right:4px"></i>
-			            
-				<a class="link" href="/tags/设计模式/">设计模式</a>           
-			
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/20/模板方法/">Continue</a> 	
+		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -524,7 +505,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/20/项目分成多个模块/">Continue</a> 	
+		<a class="readmore" href="/2019/05/20/项目分成多个模块/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -585,7 +566,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/15/特殊需求的发号器/">Continue</a> 	
+		<a class="readmore" href="/2019/05/15/特殊需求的发号器/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -635,7 +616,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/04/15/UML类与类之间关系图/">Continue</a> 	
+		<a class="readmore" href="/2019/04/15/UML类与类之间关系图/">阅读更多</a> 	
 	</div>	
     
 </article>
@@ -653,7 +634,7 @@
 
     
         <a class="next" href="/page/2/"> 
-            Next
+            下一页
             <i class="iconfont icon-right"></i>
         </a>
     
@@ -690,7 +671,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -706,19 +687,19 @@
          
             
 
-            <a class="mobile-menu-link" href="/">Home
+            <a class="mobile-menu-link" href="/">首页
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">Archives
+            <a class="mobile-menu-link" href="/archives">归档
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">Tags
+            <a class="mobile-menu-link" href="/tags">标签
             </a>
             
          
