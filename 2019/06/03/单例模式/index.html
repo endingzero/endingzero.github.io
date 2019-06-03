@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  单例模式 |   ending&#39;s blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
+
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/logo.png">
+      </a>
+    </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+    </ul>
+  </nav>
+</header>
+
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post slideDownMin">
+  
+	
+<div class="header">
+		<p class="title">	
+			单例模式
+		</p>
+		<div class="info">	
+			<time>
+				6月 03, 2019
+			</time>
+
+			
+			
+				<i class="iconfont icon-words"></i>
+				<span class="words">1777
+				</span>
+			
+		</div>
+</div> 
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+
+	  <div class="typo post-content ">
+
+		
+
+			
+					<h3 id="单例模式（单件模式）"><a href="#单例模式（单件模式）" class="headerlink" title="单例模式（单件模式）"></a>单例模式（单件模式）</h3><p>定义：确保一个类只有一个实例，并提供一个全局访问点。</p>
+<p>优点：在内存中只有一个实例，减少了内存的开销。</p>
+<p>类图<br><img src="https://i.loli.net/2019/06/03/5cf4c090e057475396.jpg" alt="1559543972819.jpg"></p>
+<a id="more"></a>
+<h3 id="几种实现方式"><a href="#几种实现方式" class="headerlink" title="几种实现方式"></a>几种实现方式</h3><ul>
+<li><p>饿汉式</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton &#123;</span><br><span class="line"></span><br><span class="line">    //在类加载的时候加载倒内存</span><br><span class="line">    public static HungrySingleton hungrySingleton = new HungrySingleton();</span><br><span class="line"></span><br><span class="line">    //将构造函数私有化</span><br><span class="line">    private HungrySingleton() &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    public static HungrySingleton getInstance() &#123;</span><br><span class="line">        return hungrySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>在类创建的时候同时已经创建了一个静态对象供系统使用，不再改变，线程安全。
+</code></pre><ul>
+<li><p>懒汉式（线程不安全，严格意义上不能算单例）</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static LazySingleton lazySingleton;</span><br><span class="line"></span><br><span class="line">    private LazySingleton()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    public static LazySingleton getInstance() &#123;</span><br><span class="line">        //需要的时候再创建</span><br><span class="line">        if(lazySingleton == null) &#123;</span><br><span class="line">            lazySingleton = new LazySingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        return lazySingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  这种方式避免了程序启动加载了，但是此类又一直没使用的浪费，只有再需要的时候才创建（延迟加载），前面也说了这种是非线程安全。</p>
+</li>
+<li><p>双重检查加锁</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class DoubleCheckLockSingleton &#123;</span><br><span class="line"></span><br><span class="line">    //被实例化的时候，多个线程正确的处理此变量</span><br><span class="line">    private volatile static DoubleCheckLockSingleton doubleCheckLockSingleton;</span><br><span class="line"></span><br><span class="line">    private DoubleCheckLockSingleton() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    public static DoubleCheckLockSingleton getInstance() &#123;</span><br><span class="line"></span><br><span class="line">        if(doubleCheckLockSingleton == null) &#123;</span><br><span class="line">            //同步块，线程安全创建实例</span><br><span class="line">            synchronized (DoubleCheckLockSingleton.class) &#123;</span><br><span class="line">                if(doubleCheckLockSingleton == null) &#123;</span><br><span class="line">                    doubleCheckLockSingleton = new DoubleCheckLockSingleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return doubleCheckLockSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  此种方式能够让同步块的代码只在第一次被实例化的时候执行。</p>
+</li>
+<li><p>内部类单例</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class InnerClassSingleton &#123;</span><br><span class="line">    </span><br><span class="line">    private static class Holder &#123;</span><br><span class="line">        private static InnerClassSingleton innerClassSIngleton = new InnerClassSingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static InnerClassSingleton getInstance() &#123;</span><br><span class="line">        return Holder.innerClassSIngleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 当第一次加载InnerClassSingleton类时并不会初始化innerClassSIngleton，只有在第一次调用getInstance方法时才会导致innerClassSIngleton被初始化。这种方式不仅能够保证线程安全，也能保证单例对象的唯一性，同时也延长了单例的实例化。</p>
+</li>
+</ul>
+<p>总的来说，推荐使用双重检查加锁和内部类单例这两种方式，不推荐使用饿汉式和懒汉式。</p>
+<p><strong>内容参考自head first一书</strong></p>
+<p>例子可以参考<a href="https://github.com/endingzero/scaffold" target="_blank" rel="noopener">github</a></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="bottom">
+  <div class="other">
+    <div class="meta">
+      
+
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/设计模式/">设计模式</a>
+      
+    </div>
+
+    <div class="operate">
+      
+    </div>
+  </div>
+
+
+  
+  <nav class="nav">
+    <div class="link">
+      
+      <a href="/2019/06/01/模板方法/" class="link-wrap">
+        <strong class="caption">older</strong>
+        
+        <span class="title">
+          模板方法
+        </span>
+      </a>
+      
+    </div>
+    <div class="link">
+      
+    </div>
+  </nav>
+  
+</div> 
+	
+<div class="comment">
+
+    
+</div>	
+</article>
+
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
+        
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+      
+</div>
+        
+    
+
+
+
+     
+    
+
+
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2018 -
+			
+			2019
+			ending
+
+			<br>
+		</div>
+	</div>
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
