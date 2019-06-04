@@ -100,6 +100,59 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2019/06/04/静态工厂方法/">静态工厂方法</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>6月 04, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h3 id="什么是静态工厂方法？"><a href="#什么是静态工厂方法？" class="headerlink" title="什么是静态工厂方法？"></a>什么是静态工厂方法？</h3><p>这里的静态工厂方法并不算设计模式，所以我没有将其归为设计模式。</p>
+<p>在Java中我们经常看到静态工厂方法的应用，只是你可能没有发觉。<br>通常我们实例化一个对象的时候，是通过new来实现。但是经常也看到这类新建方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer.valueOf(1);</span><br><span class="line">Lists.newArrayList();</span><br></pre></td></tr></table></figure>
+<p>不通过new，而是通过一个静态方法来提供自身实例的方法，这种就是静态工厂方法。<br>
+		  	  
+	</p></div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/技巧/">技巧</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/06/04/静态工厂方法/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/06/03/单例模式/">单例模式</a>  
 	       
 		 
@@ -138,7 +191,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/03/单例模式/">阅读更多</a> 	
+		<a class="readmore" href="/2019/06/03/单例模式/">Continue</a> 	
 	</div>	
     
 </article>
@@ -192,7 +245,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/01/模板方法/">阅读更多</a> 	
+		<a class="readmore" href="/2019/06/01/模板方法/">Continue</a> 	
 	</div>	
     
 </article>
@@ -244,7 +297,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">Continue</a> 	
 	</div>	
     
 </article>
@@ -294,7 +347,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/29/多使用explain/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/29/多使用explain/">Continue</a> 	
 	</div>	
     
 </article>
@@ -347,7 +400,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">Continue</a> 	
 	</div>	
     
 </article>
@@ -397,7 +450,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/27/mysql再谈索引/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/27/mysql再谈索引/">Continue</a> 	
 	</div>	
     
 </article>
@@ -453,7 +506,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">Continue</a> 	
 	</div>	
     
 </article>
@@ -506,7 +559,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">Continue</a> 	
 	</div>	
     
 </article>
@@ -557,68 +610,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/20/项目分成多个模块/">阅读更多</a> 	
-	</div>	
-    
-</article>
-
-	
-	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2019/05/15/特殊需求的发号器/">特殊需求的发号器</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>5月 15, 2019</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h3 id="需求-大多数业务都要求生成编码来唯一识别每一条数据-根据需求有以下几种情况"><a href="#需求-大多数业务都要求生成编码来唯一识别每一条数据-根据需求有以下几种情况" class="headerlink" title="需求:大多数业务都要求生成编码来唯一识别每一条数据,根据需求有以下几种情况."></a>需求:大多数业务都要求生成编码来唯一识别每一条数据,根据需求有以下几种情况.</h3><hr>
-<ol>
-<li>固定长度补0的自增长编号</li>
-<li>不补0的自增长编号</li>
-<li>时间戳+第一种情况</li>
-<li>时间戳+第二种情况</li>
-<li>前缀+第一种情况</li>
-<li>前缀+第二种情况</li>
-<li>前缀+时间戳+第一种情况</li>
-<li>前缀+时间戳+第二种情况<br>能够根据业务不同设定不同的code,code保证唯一性。</li>
-</ol>
-<hr>
-		  	  
-	</div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-			<i class="iconfont icon-tags" style="margin-right:4px"></i>
-			            
-				<a class="link" href="/tags/优化/">优化</a>           
-			
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/15/特殊需求的发号器/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/20/项目分成多个模块/">Continue</a> 	
 	</div>	
     
 </article>
@@ -632,11 +624,11 @@
    <nav class="paginator">
     
 
-   <span class="page-number"> Page <strong>1</strong>, Posts <strong>17</strong>. </span>
+   <span class="page-number"> Page <strong>1</strong>, Posts <strong>18</strong>. </span>
 
     
         <a class="next" href="/page/2/"> 
-            下一页
+            Next
             <i class="iconfont icon-right"></i>
         </a>
     
@@ -673,7 +665,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -689,19 +681,19 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
