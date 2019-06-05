@@ -81,7 +81,7 @@
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">872
+				<span class="words">810
 				</span>
 			
 		</div>
@@ -120,22 +120,15 @@
 <p>不通过new，而是通过一个静态方法来提供自身实例的方法，这种就是静态工厂方法。<br><a id="more"></a></p>
 <h3 id="静态工厂方法和new对比"><a href="#静态工厂方法和new对比" class="headerlink" title="静态工厂方法和new对比"></a>静态工厂方法和new对比</h3><p>Effective Java第2章提出的第一条建议：考虑用静态工厂方法代替构造器<br>具体有以下几种好处：</p>
 <ul>
-<li><p>静态工厂方法与构造器不同的第一优势在于，它们有名字</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    //构造器</span><br><span class="line">    new Date();</span><br><span class="line">    new Date(0L);</span><br><span class="line">    new Date(1,2,1);</span><br><span class="line">    //静态方法</span><br><span class="line">    Integer.valueOf(1);</span><br><span class="line">    </span><br><span class="line">    ``` </span><br><span class="line">    </span><br><span class="line">    而且我们知道，构造器的名字和参数格式不能同时出现一样的，使用静态工厂方法能够避免这种情况</span><br><span class="line">* 不用每次被调用时都创建新对象</span><br><span class="line">    单例就是一个例子，只返回一个实例，而不是新的实例。</span><br><span class="line"></span><br><span class="line">*  可以返回原返回类型的子类</span><br><span class="line">*  在创建带泛型的实例时，能使代码变得简洁</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 实战操作</span><br><span class="line"></span><br><span class="line">我们在实际开发中,经常会有下面这种情况。这种方式会暴漏太多的属性出来，在开发中应该多避免这种情况，而且可能别的开发者也经常复制过去，这样会让代码变得臃肿混乱。我们可以利用静态工厂方法来实现，实现起来也优雅一点了。</span><br></pre></td></tr></table></figure>
-</li>
+<li>静态工厂方法与构造器不同的第一优势在于，它们有名字，而且我们知道，构造器的名字和参数格式不能同时出现一样的，使用静态工厂方法能够避免这种情况</li>
+<li>不用每次被调用时都创建新对象，单例就是一个例子，只返回一个实例，而不是新的实例。</li>
+<li>可以返回原返回类型的子类</li>
+<li>在创建带泛型的实例时，能使代码变得简洁</li>
 </ul>
-<p>User user = new User();<br>user.setName(“abc”);<br>user.setAge(1);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>public class User(){</p>
-<pre><code>private User(){}
-
-public static User createDefaultUser() {
-    User user = new User();
-    user.setName(&quot;abc&quot;);
-    user.setAge(1);
-    return user;
-}
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">User user = User.createDefaultUser();</span><br></pre></td></tr></table></figure></p>
-  	
+<h3 id="实战操作"><a href="#实战操作" class="headerlink" title="实战操作"></a>实战操作</h3><p>我们在实际开发中,经常会有下面这种情况。这种方式会暴漏太多的属性出来，在开发中应该多避免这种情况，而且可能别的开发者也经常复制过去，这样会让代码变得臃肿混乱。我们可以利用静态工厂方法来实现，实现起来也优雅一点了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User user = new User();</span><br><span class="line">user.setName(&quot;abc&quot;);</span><br><span class="line">user.setAge(1);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class User()&#123;</span><br><span class="line">    </span><br><span class="line">    private User()&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    public static User createDefaultUser() &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setName(&quot;abc&quot;);</span><br><span class="line">        user.setAge(1);</span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User user = User.createDefaultUser();</span><br></pre></td></tr></table></figure>  	
 					
 	  </div>     
 	  
