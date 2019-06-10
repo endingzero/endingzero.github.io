@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  Mysql浅谈order By |   ending&#39;s blog </title>
+  <title>  工厂模式 |   ending&#39;s blog </title>
 
  
   
@@ -71,17 +71,17 @@
 	
 <div class="header">
 		<p class="title">	
-			mysql浅谈order by
+			工厂模式
 		</p>
 		<div class="info">	
 			<time>
-				5月 28, 2019
+				6月 05, 2019
 			</time>
 
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">1055
+				<span class="words">814
 				</span>
 			
 		</div>
@@ -114,32 +114,19 @@
 		
 
 			
-					<h3 id="mysql浅谈order-by"><a href="#mysql浅谈order-by" class="headerlink" title="mysql浅谈order by"></a>mysql浅谈order by</h3><p>背景：按照性别查询前10个用户最新创建的用户。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select tu.id,tu.name,tu.sex FROM t_user tu where tu.sex = &apos;F&apos; order by tu.create_time desc limit 0,10;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/05/28/5ceccf934840895060.jpg" alt="explain1559021687661.jpg"></p>
-<p>前面说过了，为避免全表查询，我们在where语句后面字段加上了索引。<br><a id="more"></a></p>
-<h3 id="全字段排序"><a href="#全字段排序" class="headerlink" title="全字段排序"></a>全字段排序</h3><p>Extra这个字段中“Using filesort”代表需要排序，mysql会给每个线程分配一块内存用于排序，称为sort_buffer。sort_buffer_size是sort_buffer的大小，在排序时，如果排序的数据小于sort_buffer_size，则直接在内存中进行排序，否则则需要利用磁盘文件来进行辅助排序。</p>
-<ul>
-<li>初始化sort_buffer,将id,name,sex放入sort_buffer</li>
-<li>通过sex索引查询第一个满足等于F的id</li>
-<li>再回表查询主键索引，获取到记录，存入sort_buffer。</li>
-<li>循环查询下一个满足的数据。</li>
-<li>对sort_buffer中的数据进行快速排序再取前10条返回<br>这种排序叫做全字段排列。</li>
-</ul>
-<p><img src="https://i.loli.net/2019/05/28/5ceccf933fe1998622.jpg" alt="explain21559022052961.jpg"></p>
-<p>sort_mode 里面的 packed_additional_fields 的意思是，排序过程对字符串做了“紧凑”处理。</p>
-<p>上面这种排序只对原表的数据读取一边，剩下的操作都在sort_buffer和内存中执行，假如要放的字段很多，放的行数就很少了，这样的话磁盘文件的利用就变多了。所以当mysql认为要放入的sort_buffer的字段太多时，就会采用另外一种排序,叫做rowid排序.</p>
-<h3 id="rowid排序"><a href="#rowid排序" class="headerlink" title="rowid排序"></a>rowid排序</h3><p>我们通过修改排序的最大长度来改变起使用别的排序，因为ID+name+sex的长度是61，所以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET max_length_for_sort_data = 60;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>初始化sort_buffer,将id,create_time放入sort_buffer</li>
-<li>通过sex索引查询第一个满足等于F的id</li>
-<li>再回表查询主键索引，获取到记录的id,create_time，存入sort_buffer。</li>
-<li>循环查询下一个满足的数据。</li>
-<li>对sort_buffer中的数据进行快速排序</li>
-<li>按照id的值回主键索引表获取对应字段再取前10条返回。</li>
-</ul>
-<p><img src="https://i.loli.net/2019/05/28/5ceccf9341e4e52475.jpg" alt="explain31559022124777.jpg"></p>
-<h3 id="不用排序的情况"><a href="#不用排序的情况" class="headerlink" title="不用排序的情况"></a>不用排序的情况</h3><p>有的时候排序可以省略掉，在索引树上已经上排序的情况下，查出来之后的数据也是排序的，这种就不用进行排序了，例如联合索引，where 和order的字段在满足条件的情况下，查出来的记录上排序好的。</p>
+					<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>披萨店制造pizza的过程包括准备，烘烤，切割，包装，且有多重pizza，需要实现pizza店对pizza下单整个过程</p>
+<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p>在说工厂模式前，先说说工厂模式。<br>简单工厂其实并不是一个设计模式，反而比较像是一种编程模式。</p>
+<p>简单工厂的类图：<br><img src="https://i.loli.net/2019/06/10/5cfdbb5d01fe947819.jpg" alt="1560132474972.jpg"></p>
+<p>pizza是个接口类，包含着对pizza过程的各个操作，包括准备，烘烤，切割，包装。CheesePizza、VeggiePizza、ClamPizza是pizza的具体实现。我们通过工厂类来SimplePizzaFactory中的createPizza来创建类型pizza，pizzaStore来引用工厂类进行实现。</p>
+<a id="more"></a>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>现在，需求再一次升级了，原本是一个由一个对象负责所有具体类的实例化，现在通过对PizzaStore做一些小转变，变成由其子类进行实例化。我们将PizzaStore变成一个超类,让它的子类来实例化来决定实例化什么pizza。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public abstract class PizzaStore &#123;</span><br><span class="line"></span><br><span class="line">    public Pizza orderPizza(String type) &#123;</span><br><span class="line">        Pizza pizza;</span><br><span class="line"></span><br><span class="line">        pizza = createPizza(type);</span><br><span class="line"></span><br><span class="line">        pizza.prepare();</span><br><span class="line">        pizza.bake();</span><br><span class="line">        pizza.cut();</span><br><span class="line">        pizza.box();</span><br><span class="line">        return pizza;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //现在实例化比萨的责任移到一个方法，由子类实现</span><br><span class="line">    protected abstract Pizza createPizza(String type);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类图</p>
+<p><img src="https://i.loli.net/2019/06/10/5cfdfb14d9f5542106.jpg" alt="1560148783909.jpg"></p>
+<p>定义：定义了一个创建对象的接口，但由子类决定要初始化的类的是哪一个，工厂方法模式让类把实例化推迟倒子类。</p>
+<p>从另一个角度看，这是一个平行的类层级，为什么这么说呢？<br>因为两种类都是由抽象类和对应的子类。</p>
+<p><strong>内容参考自head first一书</strong></p>
+<p>例子可以参考<a href="https://github.com/endingzero/scaffold" target="_blank" rel="noopener">github</a></p>
   	
 					
 	  </div>     
@@ -152,7 +139,7 @@
 
       
       <i class="iconfont icon-tag"></i>
-      <a class="tag-link" href="/tags/mysql/">mysql</a>
+      <a class="tag-link" href="/tags/设计模式/">设计模式</a>
       
     </div>
 
@@ -166,24 +153,16 @@
   <nav class="nav">
     <div class="link">
       
-      <a href="/2019/05/27/mysql再谈索引/" class="link-wrap">
+      <a href="/2019/06/04/静态工厂方法/" class="link-wrap">
         <strong class="caption">older</strong>
         
         <span class="title">
-          mysql再谈索引
+          静态工厂方法
         </span>
       </a>
       
     </div>
     <div class="link">
-      
-      <a href="/2019/05/29/多使用explain/" class="link-wrap">
-        <strong class="caption">newer</strong>
-        
-        <span class="title">
-          多使用explain
-        </span>
-      </a>
       
     </div>
   </nav>
