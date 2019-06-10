@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  算法之快速排序 |   ending&#39;s blog </title>
+  <title>  工厂模式 |   ending&#39;s blog </title>
 
  
   
@@ -71,17 +71,17 @@
 	
 <div class="header">
 		<p class="title">	
-			算法之快速排序
+			工厂模式
 		</p>
 		<div class="info">	
 			<time>
-				7月 16, 2018
+				6月 04, 2019
 			</time>
 
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">946
+				<span class="words">814
 				</span>
 			
 		</div>
@@ -114,11 +114,20 @@
 		
 
 			
-					<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><ol>
-<li>思想：一开始直接取左边作为基数，右边的指针下的数如果比基数大就左移动，如果比基数小则左边的指针下的数等于右边指针下的数。这时左边基数下的数再和基数比较，如果小于就右移动，如果比基数大的则右边的指针下的数等于左边的指针下的数。这样一直循环，直到第一轮结束，就分成了左边和右边，一次递归上面的方法。</li>
-</ol>
+					<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>披萨店制造pizza的过程包括准备，烘烤，切割，包装，且有多重pizza，需要实现pizza店对pizza下单整个过程</p>
+<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p>在说工厂模式前，先说说工厂模式。<br>简单工厂其实并不是一个设计模式，反而比较像是一种编程模式。</p>
+<p>简单工厂的类图：<br><img src="https://i.loli.net/2019/06/10/5cfdbb5d01fe947819.jpg" alt="1560132474972.jpg"></p>
+<p>pizza是个接口类，包含着对pizza过程的各个操作，包括准备，烘烤，切割，包装。CheesePizza、VeggiePizza、ClamPizza是pizza的具体实现。我们通过工厂类来SimplePizzaFactory中的createPizza来创建类型pizza，pizzaStore来引用工厂类进行实现。</p>
 <a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> public class QuickSort &#123;</span><br><span class="line">	public static void qSort(int[] arr,int left,int right)&#123;</span><br><span class="line">		if(left&lt;right)&#123;</span><br><span class="line">			int base = arr[left];</span><br><span class="line">			int low = left;</span><br><span class="line">			int hight = right;</span><br><span class="line">			while(low&lt;hight)&#123;</span><br><span class="line">				while(low&lt;hight&amp;&amp;arr[hight]&gt;base)&#123;</span><br><span class="line">					hight--;</span><br><span class="line">				&#125;</span><br><span class="line">				arr[low]=arr[hight];</span><br><span class="line">				while(low&lt;hight&amp;&amp;arr[low]&lt;base)&#123;</span><br><span class="line">					low++;</span><br><span class="line">				&#125;</span><br><span class="line">				arr[hight]=arr[low];</span><br><span class="line">			&#125;</span><br><span class="line">			arr[low]=base;</span><br><span class="line">			qSort(arr, left, low-1);</span><br><span class="line">			qSort(arr, low+1, right);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	public static void print(int data[])&#123;</span><br><span class="line">		for(int tmp:data)&#123;</span><br><span class="line">			System.out.print(tmp+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int[] arr=&#123;9,5,2,6,3,8&#125;;</span><br><span class="line">		qSort(arr, 0, arr.length-1);</span><br><span class="line">		print(arr);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>现在，需求再一次升级了，原本是一个由一个对象负责所有具体类的实例化，现在通过对PizzaStore做一些小转变，变成由其子类进行实例化。我们将PizzaStore变成一个超类,让它的子类来实例化来决定实例化什么pizza。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public abstract class PizzaStore &#123;</span><br><span class="line"></span><br><span class="line">    public Pizza orderPizza(String type) &#123;</span><br><span class="line">        Pizza pizza;</span><br><span class="line"></span><br><span class="line">        pizza = createPizza(type);</span><br><span class="line"></span><br><span class="line">        pizza.prepare();</span><br><span class="line">        pizza.bake();</span><br><span class="line">        pizza.cut();</span><br><span class="line">        pizza.box();</span><br><span class="line">        return pizza;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //现在实例化比萨的责任移到一个方法，由子类实现</span><br><span class="line">    protected abstract Pizza createPizza(String type);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类图</p>
+<p><img src="https://i.loli.net/2019/06/10/5cfdfb14d9f5542106.jpg" alt="1560148783909.jpg"></p>
+<p>定义：定义了一个创建对象的接口，但由子类决定要初始化的类的是哪一个，工厂方法模式让类把实例化推迟倒子类。</p>
+<p>从另一个角度看，这是一个平行的类层级，为什么这么说呢？<br>因为两种类都是由抽象类和对应的子类。</p>
+<p><strong>内容参考自head first一书</strong></p>
+<p>例子可以参考<a href="https://github.com/endingzero/scaffold" target="_blank" rel="noopener">github</a></p>
+  	
 					
 	  </div>     
 	  
@@ -130,7 +139,7 @@
 
       
       <i class="iconfont icon-tag"></i>
-      <a class="tag-link" href="/tags/算法/">算法</a>
+      <a class="tag-link" href="/tags/设计模式/">设计模式</a>
       
     </div>
 
@@ -144,24 +153,16 @@
   <nav class="nav">
     <div class="link">
       
-      <a href="/2018/07/14/算法之冒泡排序/" class="link-wrap">
+      <a href="/2019/06/04/静态工厂方法/" class="link-wrap">
         <strong class="caption">older</strong>
         
         <span class="title">
-          算法之冒泡排序
+          静态工厂方法
         </span>
       </a>
       
     </div>
     <div class="link">
-      
-      <a href="/2018/07/20/算法之插入排序/" class="link-wrap">
-        <strong class="caption">newer</strong>
-        
-        <span class="title">
-          算法之插入排序
-        </span>
-      </a>
       
     </div>
   </nav>
