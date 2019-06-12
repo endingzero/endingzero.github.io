@@ -115,8 +115,8 @@
     
 	<div class="typo article-excerpt">	
 		
-			<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>披萨店制造pizza的过程包括准备，烘烤，切割，包装，且有多重pizza，需要实现pizza店对pizza下单整个过程</p>
-<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p>在说工厂模式前，先说说工厂模式。<br>简单工厂其实并不是一个设计模式，反而比较像是一种编程模式。</p>
+			<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p>披萨店制造pizza的过程包括准备，烘烤，切割，包装，且有多重pizza，需要实现pizza店对pizza下单整个过程</p>
+<p>在说工厂模式前，先说说简单工厂模式。<br>简单工厂其实并不是一个设计模式，反而比较像是一种编程模式。</p>
 <p>简单工厂的类图：<br><img src="https://i.loli.net/2019/06/10/5cfdbb5d01fe947819.jpg" alt="1560132474972.jpg"></p>
 <p>pizza是个接口类，包含着对pizza过程的各个操作，包括准备，烘烤，切割，包装。CheesePizza、VeggiePizza、ClamPizza是pizza的具体实现。我们通过工厂类来SimplePizzaFactory中的createPizza来创建类型pizza，pizzaStore来引用工厂类进行实现。</p>
 		  	  
