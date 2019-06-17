@@ -100,6 +100,59 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2019/05/23/mysql浅谈索引/">mysql浅谈索引</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>5月 23, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h3 id="索引的常见模型"><a href="#索引的常见模型" class="headerlink" title="索引的常见模型"></a>索引的常见模型</h3><ul>
+<li>哈希表是以key-value存储数据结构，只要输入key就能找到对应的value，多个key经过换算会出现同一个值，所以解决这种方法就是后面拉出个链表。这种的优缺点也比较容易看出，新增的时候简单，直接在里链表后面追加，但是不是有序的，查询就很慢。</li>
+<li>有序数组就相反，查询特别优秀，但是新增的时候，后面的数据的序号都跟着变了。</li>
+<li>二叉树的特点是每个节点都有个左儿子和有儿子，做儿子小于父节点，右儿子大于父节点，但是一颗多节点的二叉树，书树高假如20，一次查询可能就要访问20个数据库，所以为了让查询尽量少读磁盘，就使用N叉树。
+		  	  
+	</li></ul></div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/mysql/">mysql</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/05/23/mysql浅谈索引/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/05/20/项目分成多个模块/">项目拆分多个模块</a>  
 	       
 		 
@@ -575,7 +628,7 @@
         </a>
     
 
-   <span class="page-number"> Page <strong>2</strong>, Posts <strong>19</strong>. </span>
+   <span class="page-number"> Page <strong>2</strong>, Posts <strong>20</strong>. </span>
 
     
   </nav> 
