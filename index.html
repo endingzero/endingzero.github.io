@@ -100,6 +100,66 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2019/06/29/简单工厂、工厂模式、抽象工厂/">简单工厂、工厂模式、抽象工厂</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>6月 29, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		 
+			<h2 id="简单工厂、工厂模式、抽象工厂"><a href="#简单工厂、工厂模式、抽象工厂" class="headerlink" title="简单工厂、工厂模式、抽象工厂"></a>简单工厂、工厂模式、抽象工厂</h2><p>举个栗子，来认识下这几种工厂方法</p>
+<p>打印订单、商品详情</p>
+<p>简单工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public interface Print&#123;</span><br><span class="line">    public void print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintOrder implements Print&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void print()&#123;</span><br><span class="line">         System.out.println(&quot;this is PrintOrder!&quot;);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintProduct implements Print&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void print()&#123;</span><br><span class="line">         System.out.println(&quot;this is PrintProduct!&quot;);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintFactory&#123;</span><br><span class="line">    public Print Print()&#123;</span><br><span class="line">        if(&quot;order&quot;.equals(type)) &#123;</span><br><span class="line">            return new PrintOrder();</span><br><span class="line">        &#125;else if(&quot;product&quot;.equals(type)) &#123;</span><br><span class="line">            return new PrintProduct();</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多个工厂方法模式，对普通工厂的一个改进，在简单工厂中，如果没有这种类型的就返回null；而多个工厂方法提供多个工厂方法，分别创建对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class PrintFactory&#123;</span><br><span class="line">    public Print createOrder() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">    public Print createProduct() &#123;</span><br><span class="line">        return new PrinitProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态工厂方法模式，将上面多个工厂方法的里的方法设置成静态，这样则不需要创建工厂实例，直接调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class PrintFactory&#123;</span><br><span class="line">    public Print static createOrder() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">    public Print static createProduct() &#123;</span><br><span class="line">        return new PrinitProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>抽象工厂模式，这样子实现的话，扩展的时候都要修改factory方法，比如要增加一个打印库存的信息，我们可以抽象一个Provider的接口，让工厂类来进行实现，这样每次增加只要新增一个工厂来进行创建即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Provider&#123;</span><br><span class="line">    public Print create();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class PrintOrderFactory&#123;</span><br><span class="line">    public Print create() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintProductFactory&#123;</span><br><span class="line">    public Print create() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line"> </span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Provider provider = new PrintProductFactory();</span><br><span class="line">		Print print = provider.create();</span><br><span class="line">		print.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+		  	  
+	</div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/设计模式/">设计模式</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/06/29/简单工厂、工厂模式、抽象工厂/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/06/12/Builder模式/">Builder模式</a>  
 	       
 		 
@@ -143,60 +203,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/12/Builder模式/">阅读更多</a> 	
-	</div>	
-    
-</article>
-
-	
-	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2019/06/05/工厂模式/">工厂模式</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>6月 05, 2019</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p>披萨店制造pizza的过程包括准备，烘烤，切割，包装，且有多重pizza，需要实现pizza店对pizza下单整个过程</p>
-<p>在说工厂模式前，先说说简单工厂模式。<br>简单工厂其实并不是一个设计模式，反而比较像是一种编程模式。</p>
-<p>简单工厂的类图：<br><img src="https://i.loli.net/2019/06/10/5cfdbb5d01fe947819.jpg" alt="1560132474972.jpg"></p>
-<p>pizza是个接口类，包含着对pizza过程的各个操作，包括准备，烘烤，切割，包装。CheesePizza、VeggiePizza、ClamPizza是pizza的具体实现。我们通过工厂类来SimplePizzaFactory中的createPizza来创建类型pizza，pizzaStore来引用工厂类进行实现。</p>
-		  	  
-	</div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-			<i class="iconfont icon-tags" style="margin-right:4px"></i>
-			            
-				<a class="link" href="/tags/设计模式/">设计模式</a>           
-			
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/05/工厂模式/">阅读更多</a> 	
+		<a class="readmore" href="/2019/06/12/Builder模式/">Continue</a> 	
 	</div>	
     
 </article>
@@ -249,7 +256,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/04/静态工厂方法/">阅读更多</a> 	
+		<a class="readmore" href="/2019/06/04/静态工厂方法/">Continue</a> 	
 	</div>	
     
 </article>
@@ -301,7 +308,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/03/单例模式/">阅读更多</a> 	
+		<a class="readmore" href="/2019/06/03/单例模式/">Continue</a> 	
 	</div>	
     
 </article>
@@ -355,7 +362,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/01/模板方法/">阅读更多</a> 	
+		<a class="readmore" href="/2019/06/01/模板方法/">Continue</a> 	
 	</div>	
     
 </article>
@@ -407,7 +414,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/30/怎么使用optimizer_trace来分析sql执行流程/">Continue</a> 	
 	</div>	
     
 </article>
@@ -457,7 +464,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/29/多使用explain/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/29/多使用explain/">Continue</a> 	
 	</div>	
     
 </article>
@@ -488,7 +495,7 @@
 		
 			<h3 id="mysql浅谈order-by"><a href="#mysql浅谈order-by" class="headerlink" title="mysql浅谈order by"></a>mysql浅谈order by</h3><p>背景：按照性别查询前10个用户最新创建的用户。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select tu.id,tu.name,tu.sex FROM t_user tu where tu.sex = &apos;F&apos; order by tu.create_time desc limit 0,10;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/placeholder.png" alt="explain1559021687661.jpg" data-src="https://i.loli.net/2019/05/28/5ceccf934840895060.jpg" class="lazyload"></p>
+<p><img src="https://i.loli.net/2019/05/28/5ceccf934840895060.jpg" alt="explain1559021687661.jpg"></p>
 <p>前面说过了，为避免全表查询，我们在where语句后面字段加上了索引。<br>
 		  	  
 	</p></div>
@@ -510,7 +517,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/28/mysql浅谈order by/">Continue</a> 	
 	</div>	
     
 </article>
@@ -560,7 +567,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/27/mysql再谈索引/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/27/mysql再谈索引/">Continue</a> 	
 	</div>	
     
 </article>
@@ -616,7 +623,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">阅读更多</a> 	
+		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">Continue</a> 	
 	</div>	
     
 </article>
@@ -634,7 +641,7 @@
 
     
         <a class="next" href="/page/2/"> 
-            下一页
+            Next
             <i class="iconfont icon-right"></i>
         </a>
     
@@ -671,7 +678,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -687,19 +694,19 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
