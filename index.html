@@ -100,7 +100,7 @@
 	   
 	<div class="article-header">
 	    
-		<a class="title" href="/2019/06/29/简单工厂、工厂模式、抽象工厂/">简单工厂、工厂模式、抽象工厂</a>  
+		<a class="title" href="/2019/06/29/springbean/">springbean</a>  
 	       
 		 
 
@@ -114,18 +114,66 @@
 
     
 	<div class="typo article-excerpt">	
+		
+			<h2 id="springbean"><a href="#springbean" class="headerlink" title="springbean"></a>springbean</h2><p>springbean的作用域有几种：</p>
+<ul>
+<li>singleton：单例，默认是单例模式，在ioc容器中只会存在一个共享的bean实例。</li>
+<li>prototype：原型（多例），每次注入或者通过上下文获取的时候都会创建一个实例。</li>
+<li>request：请求，在web应用中，每一次请求创建一个。</li>
+<li>session：会话，在web应用中，每一次会话创建一个。</li>
+<li>global session：一般用于Portlet(门户)应用环境，该作用域仅适用于webApplicationContext环境中</li>
+</ul>
+		  	  
+	</div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/spring/">spring</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/06/29/springbean/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="title" href="/2019/06/26/简单工厂、工厂模式、抽象工厂/">简单工厂、工厂模式、抽象工厂</a>  
+	       
 		 
+
+		<div class="meta">
+			<time>6月 26, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
 			<h2 id="简单工厂、工厂模式、抽象工厂"><a href="#简单工厂、工厂模式、抽象工厂" class="headerlink" title="简单工厂、工厂模式、抽象工厂"></a>简单工厂、工厂模式、抽象工厂</h2><p>举个栗子，来认识下这几种工厂方法</p>
 <p>打印订单、商品详情</p>
-<p>简单工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public interface Print&#123;</span><br><span class="line">    public void print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintOrder implements Print&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void print()&#123;</span><br><span class="line">         System.out.println(&quot;this is PrintOrder!&quot;);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintProduct implements Print&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void print()&#123;</span><br><span class="line">         System.out.println(&quot;this is PrintProduct!&quot;);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintFactory&#123;</span><br><span class="line">    public Print Print()&#123;</span><br><span class="line">        if(&quot;order&quot;.equals(type)) &#123;</span><br><span class="line">            return new PrintOrder();</span><br><span class="line">        &#125;else if(&quot;product&quot;.equals(type)) &#123;</span><br><span class="line">            return new PrintProduct();</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>多个工厂方法模式，对普通工厂的一个改进，在简单工厂中，如果没有这种类型的就返回null；而多个工厂方法提供多个工厂方法，分别创建对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class PrintFactory&#123;</span><br><span class="line">    public Print createOrder() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">    public Print createProduct() &#123;</span><br><span class="line">        return new PrinitProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>静态工厂方法模式，将上面多个工厂方法的里的方法设置成静态，这样则不需要创建工厂实例，直接调用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class PrintFactory&#123;</span><br><span class="line">    public Print static createOrder() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">    public Print static createProduct() &#123;</span><br><span class="line">        return new PrinitProduct();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>抽象工厂模式，这样子实现的话，扩展的时候都要修改factory方法，比如要增加一个打印库存的信息，我们可以抽象一个Provider的接口，让工厂类来进行实现，这样每次增加只要新增一个工厂来进行创建即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Provider&#123;</span><br><span class="line">    public Print create();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class PrintOrderFactory&#123;</span><br><span class="line">    public Print create() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PrintProductFactory&#123;</span><br><span class="line">    public Print create() &#123;</span><br><span class="line">        return new PrintOrder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line"> </span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Provider provider = new PrintProductFactory();</span><br><span class="line">		Print print = provider.create();</span><br><span class="line">		print.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 		  	  
 	</div>
 
@@ -146,7 +194,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/06/29/简单工厂、工厂模式、抽象工厂/">Continue</a> 	
+		<a class="readmore" href="/2019/06/26/简单工厂、工厂模式、抽象工厂/">Continue</a> 	
 	</div>	
     
 </article>
@@ -574,62 +622,6 @@
 
 	
 	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2019/05/24/mysql浅谈事务/">mysql浅谈事务</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>5月 24, 2019</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h3 id="事务四个特性："><a href="#事务四个特性：" class="headerlink" title="事务四个特性："></a>事务四个特性：</h3><p>提到事务，就会想起ACID（Atomicity、Consistency、Isolation、Durability）</p>
-<ul>
-<li>原子性：to be or not to be</li>
-<li>一致性：事务前后数据的完整性必须保持一致。</li>
-<li>隔离性：下面重点介绍</li>
-<li>持久性：指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响。</li>
-</ul>
-		  	  
-	</div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-			<i class="iconfont icon-tags" style="margin-right:4px"></i>
-			            
-				<a class="link" href="/tags/mysql/">mysql</a>           
-			
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2019/05/24/mysql浅谈事务/">Continue</a> 	
-	</div>	
-    
-</article>
-
-	
-	
 
 	
 	
@@ -637,7 +629,7 @@
    <nav class="paginator">
     
 
-   <span class="page-number"> Page <strong>1</strong>, Posts <strong>20</strong>. </span>
+   <span class="page-number"> Page <strong>1</strong>, Posts <strong>21</strong>. </span>
 
     
         <a class="next" href="/page/2/"> 
