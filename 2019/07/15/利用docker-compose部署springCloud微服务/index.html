@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  利用Docker-compose部署springCloud微服务 |   ending&#39;s blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
+
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/logo.png">
+      </a>
+    </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+    </ul>
+  </nav>
+</header>
+
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post slideDownMin">
+  
+	
+<div class="header">
+		<p class="title">	
+			利用docker-compose部署springCloud微服务
+		</p>
+		<div class="info">	
+			<time>
+				7月 15, 2019
+			</time>
+
+			
+			
+				<i class="iconfont icon-words"></i>
+				<span class="words">1911
+				</span>
+			
+		</div>
+</div> 
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+
+	  <div class="typo post-content ">
+
+		
+
+			
+					<h2 id="利用docker-compose部署springCloud微服务"><a href="#利用docker-compose部署springCloud微服务" class="headerlink" title="利用docker-compose部署springCloud微服务"></a>利用docker-compose部署springCloud微服务</h2><p>为什么使用docker来部署呢？</p>
+<ul>
+<li>安装方便</li>
+<li>容器化部署，各个服务分开部署</li>
+<li>重新部署方便，一个命令就能解决。<a id="more"></a>
+<h2 id="基本步骤（以idea来部署为例子）"><a href="#基本步骤（以idea来部署为例子）" class="headerlink" title="基本步骤（以idea来部署为例子）"></a>基本步骤（以idea来部署为例子）</h2></li>
+<li>安装docker</li>
+<li>安装idea的docker插件</li>
+<li>在每个springboot子项目的根目录添加Dockerfile文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FROM java:8</span><br><span class="line">VOLUME /tmp</span><br><span class="line">ENV PROFILE=test</span><br><span class="line">ADD ./target/pss-store-center-0.0.1-SNAPSHOT.jar app.jar</span><br><span class="line">RUN bash -c &apos;touch /app.jar&apos;</span><br><span class="line">EXPOSE 11000</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd=file:/dev/./urandom&quot;,&quot;-jar&quot;,&quot;/app.jar&quot;,&quot;--spring.profiles.active=$&#123;PROFILE&#125;&quot;]</span><br></pre></td></tr></table></figure>
+<p>4、在根目录添加docker-compose文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">version: &apos;3&apos;</span><br><span class="line">services:</span><br><span class="line">  eureka.yishou.com:</span><br><span class="line">    build: pss-store-center</span><br><span class="line">    image: pss-store-center</span><br><span class="line">    hostname: pss-store-center</span><br><span class="line">    ports:</span><br><span class="line">      - 11000:11000</span><br><span class="line">  pss-store-gateway:</span><br><span class="line">    build: pss-store-gateway</span><br><span class="line">    image: pss-store-gateway</span><br><span class="line">    hostname: localhost</span><br><span class="line">    ports:</span><br><span class="line">      - 9999:9999</span><br><span class="line">    links:</span><br><span class="line">      - eureka.yishou.com</span><br><span class="line">#  pss-store-account-service:</span><br><span class="line">#    build: pss-store-account-service</span><br><span class="line">#    image: pss-store-account-service</span><br><span class="line">#    hostname: localhost</span><br><span class="line">#    ports:</span><br><span class="line">#      - 9997:9997</span><br><span class="line">#    links:</span><br><span class="line">#      - eureka.yishou.com</span><br><span class="line">#  pss-store-shop-service:</span><br><span class="line">#    build: pss-store-shop-service</span><br><span class="line">#    image: pss-store-shop-service</span><br><span class="line">#    hostname: localhost</span><br><span class="line">#    ports:</span><br><span class="line">#      - 9998:9998</span><br><span class="line">#    links:</span><br><span class="line">#      - eureka.yishou.com</span><br><span class="line">#      - pss-store-account-service</span><br><span class="line">#  pss-store-manage-service:</span><br><span class="line">#    build: pss-store-manage-service</span><br><span class="line">#    image: pss-store-manage-service</span><br><span class="line">#    hostname: localhost</span><br><span class="line">#    ports:</span><br><span class="line">#      - 9000:9000</span><br><span class="line">#    links:</span><br><span class="line">#      - eureka.yishou.com</span><br><span class="line">#      - pss-store-account-service</span><br><span class="line">#      - pss-store-shop-service</span><br><span class="line">#  pss-store-open-service:</span><br><span class="line">#    build: pss-store-open-service</span><br><span class="line">#    image: pss-store-open-service</span><br><span class="line">#    hostname: localhost</span><br><span class="line">#    ports:</span><br><span class="line">#      - 9996:9996</span><br><span class="line">#    links:</span><br><span class="line">#      - eureka.yishou.com</span><br><span class="line">#  pss-store-micromall-service:</span><br><span class="line">#    build: pss-store-micromall-service</span><br><span class="line">#    image: pss-store-micromall-service</span><br><span class="line">#    hostname: localhost</span><br><span class="line">#    ports:</span><br><span class="line">#      - 9995:9995</span><br><span class="line">#    links:</span><br><span class="line">#      - eureka.yishou.com</span><br><span class="line">#  pss-store-turbine:</span><br><span class="line">#    build: pss-store-turbine</span><br><span class="line">#    image: pss-store-turbine</span><br><span class="line">#    hostname: localhost</span><br><span class="line">#    ports:</span><br><span class="line">#      - 9990:9990</span><br></pre></td></tr></table></figure>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>容器间的通信可以使用links，eureka是需要现启动的，其他服务需要注册进去，而且注册中心的服务名必须和yml配置中hostname一样才能被注册进去。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="bottom">
+  <div class="other">
+    <div class="meta">
+      
+
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/docke/">docke</a>
+      
+    </div>
+
+    <div class="operate">
+      
+    </div>
+  </div>
+
+
+  
+  <nav class="nav">
+    <div class="link">
+      
+      <a href="/2019/06/30/适配器模式/" class="link-wrap">
+        <strong class="caption">older</strong>
+        
+        <span class="title">
+          适配器模式
+        </span>
+      </a>
+      
+    </div>
+    <div class="link">
+      
+    </div>
+  </nav>
+  
+</div> 
+	
+<div class="comment">
+
+    
+</div>	
+</article>
+
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+      
+</div>
+        
+    
+
+
+
+     
+    
+
+
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2018 -
+			
+			2019
+			ending
+
+			<br>
+		</div>
+	</div>
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
